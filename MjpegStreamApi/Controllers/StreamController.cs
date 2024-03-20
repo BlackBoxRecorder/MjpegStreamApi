@@ -19,6 +19,8 @@ namespace MjpegStreamApi.Controllers
             Response.ContentType = CONTENT_TYPE;
             Response.Headers.Connection = "close"; // 关闭连接，因为multipart/x-mixed-replace不保持连接
 
+            await Response.BodyWriter.FlushAsync(cancellationToken);
+
             while (!cancellationToken.IsCancellationRequested)
             {
                 var imageBytes = _cameraService.GetImageBytes();
@@ -34,7 +36,7 @@ namespace MjpegStreamApi.Controllers
                 await Response.BodyWriter.FlushAsync(cancellationToken);
 
                 // 等待一段时间后捕获下一帧
-                await Task.Delay(5, cancellationToken);
+                await Task.Delay(30, cancellationToken);
             }
         }
     }

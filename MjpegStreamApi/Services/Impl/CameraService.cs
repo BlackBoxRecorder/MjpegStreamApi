@@ -40,7 +40,7 @@ namespace MjpegStreamApi.Services.Impl
         {
             if (!_isOpened)
             {
-                throw new NotImplementedException();
+                throw new InvalidOperationException();
             }
 
             return imgBytes;
