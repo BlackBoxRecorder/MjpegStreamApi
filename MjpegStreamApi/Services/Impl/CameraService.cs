@@ -12,6 +12,7 @@ namespace MjpegStreamApi.Services.Impl
 
         public CameraService()
         {
+            //打开本机第一个摄像头
             _isOpened = cap.Open(0);
 
             Task.Run(GrabImageLoop);
@@ -40,7 +41,7 @@ namespace MjpegStreamApi.Services.Impl
         {
             if (!_isOpened)
             {
-                throw new NotImplementedException();
+                throw new InvalidDataException("摄像头打开失败");
             }
 
             return imgBytes;
